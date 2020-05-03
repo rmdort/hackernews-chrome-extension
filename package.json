@@ -1,0 +1,36 @@
+{
+  "name": "hackernews-typescript",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "prebuild": "rimraf dist",
+    "build": "parcel build index.html",
+    "prettier": "prettier src --write",
+    "prezip:build": "yarn run build",
+    "zip:build": "cp manifest.json dist; cp ./*.png dist; cd dist; zip -r ../dist.zip * -x '*.DS_Store'"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.7.0",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "husky": "^4.2.5",
+    "parcel": "^2.0.0-alpha.3.2",
+    "prettier": "^2.0.5",
+    "react": "^0.0.0-experimental-e5d06e34b",
+    "react-dom": "^0.0.0-experimental-e5d06e34b",
+    "rimraf": "^3.0.2",
+    "timeago.js": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7"
+  },
+  "prettier": {
+    "semi": false
+  },
+  "husky": {
+    "pre-commit": "prettier"
+  }
+}
