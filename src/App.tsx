@@ -1,8 +1,9 @@
 import React, { Suspense, useState, useTransition, useRef, useEffect } from "react"
 import SearchBar from "./components/SearchBar"
 import Results from "./components/Results"
+import HNLogo from './components/HNLogo'
 import { search, IPromiseWrapper, IResults } from "./api/hn"
-import { Box, useColorMode, IconButton } from "@chakra-ui/core"
+import { Box, Spinner, useColorMode, IconButton } from "@chakra-ui/core"
 
 const QUERY_KEY = 'query'
 const initialQuery = localStorage.getItem(QUERY_KEY) || ''
@@ -35,21 +36,7 @@ const App = () => {
   }, [ query ])
 
   return (
-    <Box margin="auto" width={800} py={4}>
-      <Box
-        color="white"
-        background="#FC6723"
-        width={30}
-        height={30}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        margin="auto"
-        mb={4}
-        fontSize={20}
-      >
-        Y
-      </Box>
+    <Box margin="auto" width={800} py={4}>      
       <IconButton
         aria-label="Switch to dark mode"
         icon={colorMode === "dark" ? "sun" : "moon"}
@@ -58,6 +45,8 @@ const App = () => {
         top={4}
         right={4}
       />
+
+      <HNLogo />
       <SearchBar
         autoFocus
         value={query}
@@ -66,7 +55,7 @@ const App = () => {
         ref={inputRef}
       />
 
-      <Suspense fallback={<span>Loading</span>}>
+      <Suspense fallback={<Spinner />}>
         <Results resource={resource} query={query} isPending={isPending} />
       </Suspense>
     </Box>
