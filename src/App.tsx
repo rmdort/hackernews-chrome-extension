@@ -1,18 +1,17 @@
-import React, { Suspense, useState, useTransition, useRef } from "react"
+import React, { Suspense, useState, useTransition, useRef, useEffect } from "react"
 import SearchBar from "./components/SearchBar"
 import Results from "./components/Results"
 import { search, IPromiseWrapper, IResults } from "./api/hn"
 import { Box, useColorMode, IconButton } from "@chakra-ui/core"
 
-const initialPromise = search<IResults>({ query: "" })
+const QUERY_KEY = 'query'
+const initialQuery = localStorage.getItem(QUERY_KEY) || ''
 const App = () => {
-  const [query, setQuery] = useState<string>("")
-  const [resource, setResource] = useState<IPromiseWrapper<IResults>>(
-    initialPromise
-  )
+  const [query, setQuery] = useState<string>(initialQuery)
+  const [resource, setResource] = useState<IPromiseWrapper<IResults>>(() => search<IResults>({ query }))
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [startTransition, isPending] = useTransition({
-    timeoutMs: 3000,
+    timeoutMs: 2000,
   })
   const { colorMode, toggleColorMode } = useColorMode()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +25,15 @@ const App = () => {
     setQuery("")
     inputRef.current && inputRef.current.focus()
   }
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(QUERY_KEY, query)
+    } catch (err) {
+      console.error('Error saving in localstorate', err)
+    }
+  }, [ query ])
+
   return (
     <Box margin="auto" width={800} py={4}>
       <Box
