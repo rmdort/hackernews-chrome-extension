@@ -56,22 +56,22 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
         return (
           <Link
             {...boxProps}
-            target='_blank'
+            target="_blank"
             key={value.objectID}
             href={value.url}
             _hover={{
-              textDecoration: 'none',
-              bg: colorMode === 'dark' ? 'blue.700' : 'blue.50'
-            }}        
+              textDecoration: "none",
+              bg: colorMode === "dark" ? "blue.700" : "blue.50",
+            }}
           >
-            <Flex alignItems="center" flex={1}>
+            <Flex alignItems="center" flex={1} minWidth={0}>
               <StatGroup>
                 <Stat textAlign="center">
                   <StatNumber>{value.points}</StatNumber>
                   <StatHelpText>Points</StatHelpText>
                 </Stat>
               </StatGroup>
-              <Box>
+              <Box minWidth={0}>
                 <Heading
                   as="h1"
                   size="sm"
@@ -85,6 +85,18 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
                     dangerouslySetInnerHTML={{ __html: highlightedTitle }}
                   />
                 </Heading>
+                <Text
+                  title={value.url}
+                  fontSize="xs"
+                  pb={1}
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  style={{
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {value.url}
+                </Text>
                 <Text fontSize="xs">{date}</Text>
               </Box>
             </Flex>

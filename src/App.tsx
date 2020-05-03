@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useTransition } from "react"
+import React, { Suspense, useState, useTransition, useRef } from "react"
 import SearchBar from "./components/SearchBar"
 import Results from "./components/Results"
 import { search, IPromiseWrapper, IResults } from "./api/hn"
@@ -10,6 +10,7 @@ const App = () => {
   const [resource, setResource] = useState<IPromiseWrapper<IResults>>(
     initialPromise
   )
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const [startTransition, isPending] = useTransition({
     timeoutMs: 3000,
   })
@@ -21,14 +22,24 @@ const App = () => {
       setResource(search({ query }))
     })
   }
-  const handleReset = (e:React.MouseEvent<HTMLButtonElement>) => {
-    e && e.preventDefault()
-    setQuery('')
+  const handleReset = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setQuery("")
+    inputRef.current && inputRef.current.focus()
   }
-
   return (
     <Box margin="auto" width={800} py={4}>
-      <Box color='white' background='#FC6723' width={30} height={30} display='flex' alignItems='center' justifyContent='center' margin='auto' mb={4} fontSize={20}>
+      <Box
+        color="white"
+        background="#FC6723"
+        width={30}
+        height={30}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        margin="auto"
+        mb={4}
+        fontSize={20}
+      >
         Y
       </Box>
       <IconButton
@@ -39,7 +50,13 @@ const App = () => {
         top={4}
         right={4}
       />
-      <SearchBar autoFocus value={query} onChange={handleChange} onReset={handleReset} />
+      <SearchBar
+        autoFocus
+        value={query}
+        onChange={handleChange}
+        onReset={handleReset}
+        ref={inputRef}
+      />
 
       <Suspense fallback={<span>Loading</span>}>
         <Results resource={resource} query={query} isPending={isPending} />
