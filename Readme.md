@@ -2,6 +2,6 @@
 
 # HackerNews search
 
-Quickly search HackerNews for top content in chrome browser New Tab
+A chrome extension that replaces *New Tab* page to display HackerNews search
 
 ![screenshot.png](screenshot.png)

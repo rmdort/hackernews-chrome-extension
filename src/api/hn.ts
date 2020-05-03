@@ -29,7 +29,7 @@ export interface IPromiseWrapper<T> {
 export const search = <T>({ query }: ISearchProps): IPromiseWrapper<T> => {
   const promise = query
     ? fetch(
-        `http://hn.algolia.com/api/v1/search_by_date?tags=story&query="${query}"`
+        `https://hn.algolia.com/api/v1/search_by_date?tags=story&query="${query}"`
       )
         .then((res) => res.json())
         .then((res) => res.hits)
