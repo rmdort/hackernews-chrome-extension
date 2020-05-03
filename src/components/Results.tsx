@@ -49,7 +49,7 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
           <Text>Oops! No results, try a different keyword.</Text>
         </Box>
       )}
-      {(values as IResults[]).map((value) => {
+      {values.map((value) => {
         const highlightedTitle = value._highlightResult.title.value
         const date = timeago.format(value.created_at)
         return (

@@ -7,7 +7,7 @@
     "prebuild": "rimraf dist",
     "build": "parcel build index.html",
     "prettier": "prettier src --write",
-    "prezip:build": "yarn run build",
+    "prezip:build": "npm run build",
     "zip:build": "cp manifest.json dist; cp ./*.png dist; cd dist; zip -r ../dist.zip * -x '*.DS_Store'"
   },
   "dependencies": {
@@ -31,6 +31,8 @@
     "semi": false
   },
   "husky": {
-    "pre-commit": "prettier"
+    "hooks" : {
+      "pre-commit": "npm run prettier"
+    }
   }
 }

@@ -20,7 +20,7 @@ export interface IResults {
   _highlightResult: THighlight
 }
 
-type THighlight = Record<"title", { value: string }>
+type THighlight = Record<'title', { value: string }>
 
 export interface IPromiseWrapper<T> {
   read: () => T[]
