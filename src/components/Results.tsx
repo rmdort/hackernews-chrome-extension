@@ -13,7 +13,7 @@ import {
   Flex,
   useColorMode,
 } from "@chakra-ui/core"
-import { IPromiseWrapper, IResults } from "./../../api/hn"
+import { IPromiseWrapper, IResults } from "./../api/hn"
 import * as timeago from "timeago.js"
 import { Global, css } from "@emotion/core"
 
@@ -39,7 +39,8 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
       <Global
         styles={css`
           .result-title em {
-            background: yellow;
+            background: #ffc;
+            font-style: normal;
             color: ${colorMode === "dark" ? "black" : "inherit"};
           }
         `}
@@ -53,7 +54,16 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
         const highlightedTitle = value._highlightResult.title.value
         const date = timeago.format(value.created_at)
         return (
-          <Link key={value.objectID} href={value.url} {...boxProps}>
+          <Link
+            {...boxProps}
+            target='_blank'
+            key={value.objectID}
+            href={value.url}
+            _hover={{
+              textDecoration: 'none',
+              bg: colorMode === 'dark' ? 'blue.700' : 'blue.50'
+            }}        
+          >
             <Flex alignItems="center" flex={1}>
               <StatGroup>
                 <Stat textAlign="center">

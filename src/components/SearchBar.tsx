@@ -5,13 +5,14 @@ interface IProps {
   placeholder?: string
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  autoFocus?: boolean
 }
 
 const SearchBar: React.FC<IProps> = (props) => {
   return (
     <InputGroup pb={4}>
       <InputLeftElement children={<Icon name="search" />} />
-      <Input {...props} />
+      <Input autoFocus {...props} />
     </InputGroup>
   )
 }

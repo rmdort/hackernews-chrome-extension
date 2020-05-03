@@ -4,10 +4,11 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && npm run check-types",
     "build": "parcel build index.html",
     "prettier": "prettier src --write",
     "prezip:build": "npm run build",
+    "check-types": "tsc --noEmit",
     "zip:build": "cp manifest.json dist; cp ./*.png dist; cd dist; zip -r ../dist.zip * -x '*.DS_Store'"
   },
   "dependencies": {
@@ -25,13 +26,14 @@
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.7"
+    "@types/react-dom": "^16.9.7",
+    "typescript": "^3.8.3"
   },
   "prettier": {
     "semi": false
   },
   "husky": {
-    "hooks" : {
+    "hooks": {
       "pre-commit": "npm run prettier"
     }
   }
