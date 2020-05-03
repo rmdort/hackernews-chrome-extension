@@ -21,6 +21,11 @@ const App = () => {
       setResource(search({ query }))
     })
   }
+  const handleReset = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e && e.preventDefault()
+    setQuery('')
+  }
+
   return (
     <Box margin="auto" width={800} py={4}>
       <Box color='white' background='#FC6723' width={30} height={30} display='flex' alignItems='center' justifyContent='center' margin='auto' mb={4} fontSize={20}>
@@ -34,7 +39,7 @@ const App = () => {
         top={4}
         right={4}
       />
-      <SearchBar autoFocus value={query} onChange={handleChange} />
+      <SearchBar autoFocus value={query} onChange={handleChange} onReset={handleReset} />
 
       <Suspense fallback={<span>Loading</span>}>
         <Results resource={resource} query={query} isPending={isPending} />
