@@ -58,10 +58,7 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
         const highlightedTitle = value._highlightResult.title.value
         const date = timeago.format(value.created_at)
         return (
-          <Box
-            {...boxProps}            
-            key={value.objectID}            
-          >
+          <Box {...boxProps} key={value.objectID}>
             <Flex alignItems="center" flex={1} minWidth={0}>
               <StatGroup>
                 <Stat textAlign="center">
@@ -70,7 +67,7 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
                 </Stat>
               </StatGroup>
               <Box minWidth={0}>
-                <Link href={url} target='_blank'>
+                <Link href={url} target="_blank">
                   <Heading
                     as="h1"
                     size="sm"
@@ -99,7 +96,7 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
                 </Text>
                 <Stack spacing={4} isInline>
                   <Text fontSize="xs">{date}</Text>
-                  <Link href={storyUrl} target='_blank'>
+                  <Link href={storyUrl} target="_blank">
                     <Text fontSize="xs">{numComments} comments</Text>
                   </Link>
                 </Stack>
