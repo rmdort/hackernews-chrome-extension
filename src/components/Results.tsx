@@ -51,18 +51,16 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
         </Box>
       )}
       {values.map((value) => {
+        const numComments = value.num_comments
+        const storyId = value.objectID
+        const storyUrl = `https://news.ycombinator.com/item?id=${storyId}`
+        const url = value.url || storyUrl
         const highlightedTitle = value._highlightResult.title.value
         const date = timeago.format(value.created_at)
         return (
-          <Link
-            {...boxProps}
-            target="_blank"
-            key={value.objectID}
-            href={value.url}
-            _hover={{
-              textDecoration: "none",
-              bg: colorMode === "dark" ? "blue.700" : "blue.50",
-            }}
+          <Box
+            {...boxProps}            
+            key={value.objectID}            
           >
             <Flex alignItems="center" flex={1} minWidth={0}>
               <StatGroup>
@@ -72,19 +70,21 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
                 </Stat>
               </StatGroup>
               <Box minWidth={0}>
-                <Heading
-                  as="h1"
-                  size="sm"
-                  mb={1}
-                  alignItems="center"
-                  display="flex"
-                >
-                  <Icon name="external-link" mr={1} />
-                  <span
-                    className="result-title"
-                    dangerouslySetInnerHTML={{ __html: highlightedTitle }}
-                  />
-                </Heading>
+                <Link href={url} target='_blank'>
+                  <Heading
+                    as="h1"
+                    size="sm"
+                    mb={1}
+                    alignItems="center"
+                    display="flex"
+                  >
+                    <Icon name="external-link" mr={1} />
+                    <span
+                      className="result-title"
+                      dangerouslySetInnerHTML={{ __html: highlightedTitle }}
+                    />
+                  </Heading>
+                </Link>
                 <Text
                   title={value.url}
                   fontSize="xs"
@@ -97,10 +97,15 @@ const Results: React.FC<IProps> = ({ resource, query, isPending }) => {
                 >
                   {value.url}
                 </Text>
-                <Text fontSize="xs">{date}</Text>
+                <Stack spacing={4} isInline>
+                  <Text fontSize="xs">{date}</Text>
+                  <Link href={storyUrl} target='_blank'>
+                    <Text fontSize="xs">{numComments} comments</Text>
+                  </Link>
+                </Stack>
               </Box>
             </Flex>
-          </Link>
+          </Box>
         )
       })}
     </Stack>
